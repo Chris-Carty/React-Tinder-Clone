@@ -1,4 +1,4 @@
-live Website:
+Live Website:
 
 REACT / JS / HTML / CSS
 
