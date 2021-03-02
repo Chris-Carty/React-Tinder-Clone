@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TinderCards.css";
 import TinderCard from "react-tinder-card";
+import database from "./Firebase";
 
 function TinderCards() {
   // people === const people = []
   // setPeople === people.push(.....)
-  const [people, setPeople] = useState([
-    {
-      name: "Steve Jobs",
-      url:
-        "https://historythings.com/wp-content/uploads/2016/06/SteveJobsBook.jpg",
-    },
-    {
-      name: "Mark Zuckerberg",
-      url:
-        "https://i.insider.com/5d84cf172e22af00cf69451a?width=1000&format=jpeg&auto=webp",
-    },
-  ]);
+  const [people, setPeople] = useState([]);
+
+  // Piece of code which runs based on a condtion:
+  useEffect(() => {
+    // const unsubscribe = database;
+    database
+      .collection("people")
+      .onSnapshot((snapshot) =>
+        setPeople(snapshot.docs.map((doc) => doc.data()))
+      );
+
+    //return () => {
+    // this is the cleanup...
+    //unsubscribe();
+    //};
+  }, []);
 
   return (
     <div>
